@@ -1,0 +1,77 @@
+metrics:
+  # Basic temperature metrics from weather_daily semantic model
+  - name: average_temperature_f
+    description: Average temperature in Fahrenheit across all observations
+    type: simple
+    label: Average Temperature (°F)
+    type_params:
+      measure: actual_temp_avg_f
+    meta:
+      metric_type: temperature
+
+  - name: average_temperature_c
+    description: Average temperature in Celsius across all observations  
+    type: simple
+    label: Average Temperature (°C)
+    type_params:
+      measure: actual_temp_avg_c
+    meta:
+      metric_type: temperature
+
+  - name: min_temperature_f
+    description: Average minimum temperature in Fahrenheit
+    type: simple
+    label: Average Min Temperature (°F)
+    type_params:
+      measure: actual_temp_min_f
+    meta:
+      metric_type: temperature
+
+  - name: max_temperature_f
+    description: Average maximum temperature in Fahrenheit
+    type: simple
+    label: Average Max Temperature (°F)
+    type_params:
+      measure: actual_temp_max_f
+    meta:
+      metric_type: temperature
+
+  # Temperature range metrics
+  - name: average_daily_temp_range
+    description: Average daily temperature range in Fahrenheit
+    type: simple
+    label: Avg Daily Temp Range (°F)
+    type_params:
+      measure: temp_range_f
+    meta:
+      metric_type: temperature_range
+
+  # Climate anomaly metrics from weather_daily
+  - name: temperature_anomaly
+    description: Temperature deviation from climate normal in Fahrenheit
+    type: simple
+    label: Temperature Anomaly (°F)
+    type_params:
+      measure: temp_deviation_f
+    meta:
+      metric_type: climate_anomaly
+
+  - name: temperature_z_score
+    description: Temperature anomaly in standard deviations from normal
+    type: simple
+    label: Temperature Z-Score
+    type_params:
+      measure: temp_std_devs_from_normal
+    meta:
+      metric_type: climate_anomaly
+
+  # Count metrics
+  - name: total_observations
+    description: Total number of weather observations
+    type: simple
+    label: Total Observations
+    type_params:
+      measure: observation_count
+    meta:
+      metric_type: count
+

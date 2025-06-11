@@ -1,0 +1,232 @@
+version: 2
+
+models:
+  - name: mart_weather_daily
+    description: Daily weather observations enriched with climate normals and deviations. Core fact table for weather analysis.
+    columns:
+      - name: postal_code
+        description: Postal code identifying the geographic location
+      - name: country
+        description: Country code (e.g., US, IN)
+      - name: observation_date
+        description: Date of the weather observation
+      - name: observation_year
+        description: Year of observation
+      - name: observation_month
+        description: Month of observation (1-12)
+      - name: observation_day
+        description: Day of month
+      - name: day_of_year
+        description: Day of year (1-366)
+      
+      # Actual temperatures
+      - name: actual_temp_min_f
+        description: Actual minimum temperature in Fahrenheit
+      - name: actual_temp_avg_f
+        description: Actual average temperature in Fahrenheit
+      - name: actual_temp_max_f
+        description: Actual maximum temperature in Fahrenheit
+      - name: actual_temp_min_c
+        description: Actual minimum temperature in Celsius
+      - name: actual_temp_avg_c
+        description: Actual average temperature in Celsius
+      - name: actual_temp_max_c
+        description: Actual maximum temperature in Celsius
+      
+      # Climate normals
+      - name: normal_temp_min_f
+        description: Long-term average minimum temperature for this day of year in Fahrenheit
+      - name: normal_temp_avg_f
+        description: Long-term average mean temperature for this day of year in Fahrenheit
+      - name: normal_temp_max_f
+        description: Long-term average maximum temperature for this day of year in Fahrenheit
+      - name: normal_temp_min_c
+        description: Long-term average minimum temperature for this day of year in Celsius
+      - name: normal_temp_avg_c
+        description: Long-term average mean temperature for this day of year in Celsius
+      - name: normal_temp_max_c
+        description: Long-term average maximum temperature for this day of year in Celsius
+      
+      # Deviations
+      - name: temp_min_deviation_f
+        description: Difference between actual and normal minimum temperature in Fahrenheit
+      - name: temp_avg_deviation_f
+        description: Difference between actual and normal average temperature in Fahrenheit
+      - name: temp_max_deviation_f
+        description: Difference between actual and normal maximum temperature in Fahrenheit
+      - name: temp_min_deviation_c
+        description: Difference between actual and normal minimum temperature in Celsius
+      - name: temp_avg_deviation_c
+        description: Difference between actual and normal average temperature in Celsius
+      - name: temp_max_deviation_c
+        description: Difference between actual and normal maximum temperature in Celsius
+      - name: temp_avg_std_devs_from_normal
+        description: Number of standard deviations the average temperature is from normal (z-score)
+      
+      # Other metrics
+      - name: dewpoint_min_f
+        description: Minimum dewpoint temperature in Fahrenheit
+      - name: dewpoint_avg_f
+        description: Average dewpoint temperature in Fahrenheit
+      - name: dewpoint_max_f
+        description: Maximum dewpoint temperature in Fahrenheit
+      - name: wetbulb_min_f
+        description: Minimum wet-bulb temperature in Fahrenheit
+      - name: wetbulb_avg_f
+        description: Average wet-bulb temperature in Fahrenheit
+      - name: wetbulb_max_f
+        description: Maximum wet-bulb temperature in Fahrenheit
+      - name: normal_temp_min_std_f
+        description: Standard deviation of historical minimum temperatures
+      - name: normal_temp_avg_std_f
+        description: Standard deviation of historical average temperatures
+      - name: normal_temp_max_std_f
+        description: Standard deviation of historical maximum temperatures
+
+  - name: mart_weather_forecast_daily
+    description: Daily weather forecasts with actual observations joined when available for accuracy analysis
+    columns:
+      - name: postal_code
+        description: Postal code identifying the geographic location
+      - name: country
+        description: Country code (e.g., US, IN)
+      - name: forecast_date
+        description: Date being forecasted
+      - name: forecast_init_time
+        description: UTC timestamp when the forecast was generated
+      - name: forecast_year
+        description: Year of the forecast date
+      - name: forecast_month
+        description: Month of the forecast date (1-12)
+      - name: forecast_day
+        description: Day of month for the forecast date
+      - name: day_of_year
+        description: Day of year (1-366)
+      - name: days_ahead
+        description: Number of days between current date and forecast date
+      
+      # Forecast values
+      - name: forecast_temp_min_f
+        description: Forecasted minimum temperature in Fahrenheit
+      - name: forecast_temp_avg_f
+        description: Forecasted average temperature in Fahrenheit
+      - name: forecast_temp_max_f
+        description: Forecasted maximum temperature in Fahrenheit
+      - name: forecast_temp_min_c
+        description: Forecasted minimum temperature in Celsius
+      - name: forecast_temp_avg_c
+        description: Forecasted average temperature in Celsius
+      - name: forecast_temp_max_c
+        description: Forecasted maximum temperature in Celsius
+      
+      # Actual values (when available)
+      - name: actual_temp_min_f
+        description: Actual minimum temperature in Fahrenheit (null if future date)
+      - name: actual_temp_avg_f
+        description: Actual average temperature in Fahrenheit (null if future date)
+      - name: actual_temp_max_f
+        description: Actual maximum temperature in Fahrenheit (null if future date)
+      - name: actual_temp_min_c
+        description: Actual minimum temperature in Celsius (null if future date)
+      - name: actual_temp_avg_c
+        description: Actual average temperature in Celsius (null if future date)
+      - name: actual_temp_max_c
+        description: Actual maximum temperature in Celsius (null if future date)
+      
+      # Forecast errors
+      - name: forecast_error_min_f
+        description: Forecast minus actual minimum temperature (positive = overforecast)
+      - name: forecast_error_avg_f
+        description: Forecast minus actual average temperature (positive = overforecast)
+      - name: forecast_error_max_f
+        description: Forecast minus actual maximum temperature (positive = overforecast)
+      - name: forecast_abs_error_avg_f
+        description: Absolute error of average temperature forecast in Fahrenheit
+      
+      # Metadata
+      - name: has_actual_data
+        description: Boolean indicating if actual observation data is available
+      
+      # Other forecast metrics
+      - name: forecast_dewpoint_min_f
+        description: Forecasted minimum dewpoint in Fahrenheit
+      - name: forecast_dewpoint_avg_f
+        description: Forecasted average dewpoint in Fahrenheit
+      - name: forecast_dewpoint_max_f
+        description: Forecasted maximum dewpoint in Fahrenheit
+      - name: forecast_wetbulb_min_f
+        description: Forecasted minimum wet-bulb temperature in Fahrenheit
+      - name: forecast_wetbulb_avg_f
+        description: Forecasted average wet-bulb temperature in Fahrenheit
+      - name: forecast_wetbulb_max_f
+        description: Forecasted maximum wet-bulb temperature in Fahrenheit
+
+  - name: mart_weather_climate_daily
+    description: Daily weather with rich climate context, anomaly detection, and comfort indicators
+    columns:
+      - name: postal_code
+        description: Postal code identifying the geographic location
+      - name: country
+        description: Country code (e.g., US, IN)
+      - name: observation_date
+        description: Date of the weather observation
+      - name: observation_year
+        description: Year of observation
+      - name: observation_month
+        description: Month of observation (1-12)
+      - name: observation_day
+        description: Day of month
+      - name: day_of_year
+        description: Day of year (1-366)
+      - name: day_of_week
+        description: Day of week (1=Sunday, 7=Saturday)
+      - name: season
+        description: Season based on month (Winter, Spring, Summer, Fall)
+      
+      # Actual temperatures
+      - name: actual_temp_min_f
+        description: Actual minimum temperature in Fahrenheit
+      - name: actual_temp_avg_f
+        description: Actual average temperature in Fahrenheit
+      - name: actual_temp_max_f
+        description: Actual maximum temperature in Fahrenheit
+      - name: actual_temp_avg_c
+        description: Actual average temperature in Celsius
+      
+      # Climate context
+      - name: normal_temp_avg_f
+        description: Long-term average temperature for this day of year in Fahrenheit
+      - name: normal_temp_avg_c
+        description: Long-term average temperature for this day of year in Celsius
+      - name: normal_temp_std_f
+        description: Standard deviation of temperatures for this day of year
+      
+      # Anomaly analysis
+      - name: temp_anomaly_f
+        description: Temperature deviation from normal in Fahrenheit
+      - name: temp_anomaly_c
+        description: Temperature deviation from normal in Celsius
+      - name: temp_anomaly_z_score
+        description: Standardized temperature anomaly (number of standard deviations from normal)
+      - name: temperature_category
+        description: Categorization of temperature (Much Below Normal, Below Normal, Normal, Above Normal, Much Above Normal)
+      - name: is_extreme_temperature
+        description: Boolean flag for temperatures beyond 3 standard deviations from normal
+      
+      # Temperature characteristics
+      - name: daily_temp_range_f
+        description: Daily temperature range (max - min) in Fahrenheit
+      - name: daily_temp_range_c
+        description: Daily temperature range (max - min) in Celsius
+      
+      # Comfort and extreme indicators
+      - name: is_comfortable_temp
+        description: Boolean flag for temperatures between 65-75°F
+      - name: is_hot_day
+        description: Boolean flag for days with max temperature >= 90°F
+      - name: is_extreme_heat_day
+        description: Boolean flag for days with max temperature >= 100°F
+      - name: is_freezing_day
+        description: Boolean flag for days with min temperature <= 32°F
+      - name: is_extreme_cold_day
+        description: Boolean flag for days with min temperature <= 0°F

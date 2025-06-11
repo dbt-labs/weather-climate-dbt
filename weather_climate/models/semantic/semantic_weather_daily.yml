@@ -1,0 +1,84 @@
+semantic_models:
+  - name: weather_daily
+    description: Daily weather observations with climate context for analysis
+    model: ref('mart_weather_daily')
+    
+    defaults:
+      agg_time_dimension: observation_date
+    
+    dimensions:
+      - name: observation_date
+        type: time
+        expr: observation_date
+        type_params:
+          time_granularity: day
+      
+      - name: postal_code
+        type: categorical
+        expr: postal_code
+      
+      - name: country
+        type: categorical
+        expr: country
+      
+      - name: observation_year
+        type: categorical
+        expr: observation_year
+      
+      - name: observation_month
+        type: categorical
+        expr: observation_month
+      
+      - name: day_of_year
+        type: categorical
+        expr: day_of_year
+    
+    measures:
+      # Actual temperature measures
+      - name: actual_temp_avg_f
+        description: Average temperature in Fahrenheit
+        agg: average
+        expr: actual_temp_avg_f
+      
+      - name: actual_temp_min_f
+        description: Minimum temperature in Fahrenheit
+        agg: average
+        expr: actual_temp_min_f
+      
+      - name: actual_temp_max_f
+        description: Maximum temperature in Fahrenheit
+        agg: average
+        expr: actual_temp_max_f
+      
+      - name: actual_temp_avg_c
+        description: Average temperature in Celsius
+        agg: average
+        expr: actual_temp_avg_c
+      
+      # Temperature range measures
+      - name: temp_range_f
+        description: Daily temperature range in Fahrenheit
+        agg: average
+        expr: actual_temp_max_f - actual_temp_min_f
+      
+      # Climate deviation measures
+      - name: temp_deviation_f
+        description: Temperature deviation from normal in Fahrenheit
+        agg: average
+        expr: temp_avg_deviation_f
+      
+      - name: temp_std_devs_from_normal
+        description: Standard deviations from normal temperature
+        agg: average
+        expr: temp_avg_std_devs_from_normal
+      
+      # Count measures
+      - name: observation_count
+        description: Number of daily observations
+        agg: count
+        expr: postal_code
+
+    entities:
+      - name: location
+        type: primary
+        expr: postal_code

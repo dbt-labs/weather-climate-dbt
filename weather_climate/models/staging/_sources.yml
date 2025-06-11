@@ -1,0 +1,45 @@
+version: 2
+
+sources:
+  - name: weather_data
+    database: DX_GLOBAL_WEATHER__CLIMATE_DATA_FOR_BI
+    schema: STANDARD_TILE
+    description: Global weather and climate data from Snowflake Marketplace
+    tables:
+      - name: HISTORY_DAY
+        description: Historical daily weather data by postal code
+        columns:
+          - name: POSTAL_CODE
+            description: Postal code for the location
+          - name: COUNTRY
+            description: Country code
+          - name: DATE_VALID_STD
+            description: Date of the weather observation
+          - name: DOY_STD
+            description: Day of year (1-365/366)
+          - name: MIN_TEMPERATURE_AIR_2M_F
+            description: Minimum air temperature at 2 meters in Fahrenheit
+          - name: AVG_TEMPERATURE_AIR_2M_F
+            description: Average air temperature at 2 meters in Fahrenheit
+          - name: MAX_TEMPERATURE_AIR_2M_F
+            description: Maximum air temperature at 2 meters in Fahrenheit
+          
+      - name: FORECAST_DAY
+        description: Weather forecast data by postal code
+        columns:
+          - name: POSTAL_CODE
+            description: Postal code for the location
+          - name: COUNTRY
+            description: Country code
+          - name: DATE_VALID_STD
+            description: Date of the forecast
+          
+      - name: CLIMATOLOGY_DAY
+        description: Long-term climate averages by postal code
+        columns:
+          - name: POSTAL_CODE
+            description: Postal code for the location
+          - name: COUNTRY
+            description: Country code
+          - name: DOY_STD
+            description: Day of year (1-365/366) for climatology

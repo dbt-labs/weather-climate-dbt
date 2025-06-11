@@ -1,0 +1,130 @@
+version: 2
+
+models:
+  - name: stg_weather_history
+    description: Staging model for historical daily weather observations
+    columns:
+      - name: postal_code
+        description: Postal code identifying the geographic location
+      - name: country
+        description: Country code (e.g., US, IN)
+      - name: observation_date
+        description: Date of the weather observation
+      - name: day_of_year
+        description: Day of year (1-366)
+      - name: temp_min_f
+        description: Minimum temperature in Fahrenheit
+      - name: temp_avg_f
+        description: Average temperature in Fahrenheit
+      - name: temp_max_f
+        description: Maximum temperature in Fahrenheit
+      - name: temp_min_c
+        description: Minimum temperature in Celsius (converted from Fahrenheit)
+      - name: temp_avg_c
+        description: Average temperature in Celsius (converted from Fahrenheit)
+      - name: temp_max_c
+        description: Maximum temperature in Celsius (converted from Fahrenheit)
+      - name: dewpoint_min_f
+        description: Minimum dewpoint temperature in Fahrenheit
+      - name: dewpoint_avg_f
+        description: Average dewpoint temperature in Fahrenheit
+      - name: dewpoint_max_f
+        description: Maximum dewpoint temperature in Fahrenheit
+      - name: wetbulb_min_f
+        description: Minimum wet-bulb temperature in Fahrenheit
+      - name: wetbulb_avg_f
+        description: Average wet-bulb temperature in Fahrenheit
+      - name: wetbulb_max_f
+        description: Maximum wet-bulb temperature in Fahrenheit
+      - name: observation_year
+        description: Year extracted from observation_date
+      - name: observation_month
+        description: Month extracted from observation_date (1-12)
+      - name: observation_day
+        description: Day of month extracted from observation_date
+
+  - name: stg_weather_forecast
+    description: Staging model for weather forecast data
+    columns:
+      - name: postal_code
+        description: Postal code identifying the geographic location
+      - name: country
+        description: Country code (e.g., US, IN)
+      - name: forecast_init_time
+        description: UTC timestamp when the forecast was generated
+      - name: forecast_date
+        description: Date being forecasted
+      - name: day_of_year
+        description: Day of year (1-366) for the forecast date
+      - name: temp_min_f
+        description: Forecasted minimum temperature in Fahrenheit
+      - name: temp_avg_f
+        description: Forecasted average temperature in Fahrenheit
+      - name: temp_max_f
+        description: Forecasted maximum temperature in Fahrenheit
+      - name: temp_min_c
+        description: Forecasted minimum temperature in Celsius (converted)
+      - name: temp_avg_c
+        description: Forecasted average temperature in Celsius (converted)
+      - name: temp_max_c
+        description: Forecasted maximum temperature in Celsius (converted)
+      - name: dewpoint_min_f
+        description: Forecasted minimum dewpoint temperature in Fahrenheit
+      - name: dewpoint_avg_f
+        description: Forecasted average dewpoint temperature in Fahrenheit
+      - name: dewpoint_max_f
+        description: Forecasted maximum dewpoint temperature in Fahrenheit
+      - name: wetbulb_min_f
+        description: Forecasted minimum wet-bulb temperature in Fahrenheit
+      - name: wetbulb_avg_f
+        description: Forecasted average wet-bulb temperature in Fahrenheit
+      - name: wetbulb_max_f
+        description: Forecasted maximum wet-bulb temperature in Fahrenheit
+      - name: forecast_year
+        description: Year extracted from forecast_date
+      - name: forecast_month
+        description: Month extracted from forecast_date (1-12)
+      - name: forecast_day
+        description: Day of month extracted from forecast_date
+      - name: days_ahead
+        description: Number of days between current date and forecast date
+
+  - name: stg_weather_climatology
+    description: Staging model for climate normals (long-term averages by day of year)
+    columns:
+      - name: postal_code
+        description: Postal code identifying the geographic location
+      - name: country
+        description: Country code (e.g., US, IN)
+      - name: day_of_year
+        description: Day of year (1-366) for climate averages
+      - name: temp_min_avg_f
+        description: Long-term average minimum temperature in Fahrenheit
+      - name: temp_avg_avg_f
+        description: Long-term average mean temperature in Fahrenheit
+      - name: temp_max_avg_f
+        description: Long-term average maximum temperature in Fahrenheit
+      - name: temp_min_std_f
+        description: Standard deviation of minimum temperatures in Fahrenheit
+      - name: temp_avg_std_f
+        description: Standard deviation of average temperatures in Fahrenheit
+      - name: temp_max_std_f
+        description: Standard deviation of maximum temperatures in Fahrenheit
+      - name: temp_min_avg_c
+        description: Long-term average minimum temperature in Celsius (converted)
+      - name: temp_avg_avg_c
+        description: Long-term average mean temperature in Celsius (converted)
+      - name: temp_max_avg_c
+        description: Long-term average maximum temperature in Celsius (converted)
+      - name: dewpoint_min_avg_f
+        description: Long-term average minimum dewpoint in Fahrenheit
+      - name: dewpoint_avg_avg_f
+        description: Long-term average mean dewpoint in Fahrenheit
+      - name: dewpoint_max_avg_f
+        description: Long-term average maximum dewpoint in Fahrenheit
+      - name: wetbulb_min_avg_f
+        description: Long-term average minimum wet-bulb temperature in Fahrenheit
+      - name: wetbulb_avg_avg_f
+        description: Long-term average mean wet-bulb temperature in Fahrenheit
+      - name: wetbulb_max_avg_f
+        description: Long-term average maximum wet-bulb temperature in Fahrenheit
